@@ -65,4 +65,51 @@
             </script>
         </actions>
     </service>
+
+
+<!--    find the entity : task 1 of assignment 4 -->
+    <service verb="find" noun="TrainingDetail">
+        <in-parameters>
+            <parameter name="trainingName" required="true"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="moquiTrainingListData" type="list"/>
+        </out-parameters>
+        <actions>
+            <entity-find entity-name="MoquiTraining" list="moquiTrainingListData">
+                <econdition field-name="trainingName"/>
+<!--                <select-field field-name="trainingName,trainingId,trainingDate"/>-->
+                <select-field field-name="trainingName"/>
+                <select-field field-name="trainingId"/>
+                <select-field field-name="trainingDate"/>
+            </entity-find>
+        </actions>
+    </service>
+
+<!--   update moqui entity or create  -->
+    <service verb="store" noun="MoquiTrainingStore">
+        <in-parameters>
+            <auto-parameters entity-name="MoquiTraining" include="nonpk"/>
+            <parameter name="trainingName" required="true"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="trainingId"/>
+        </out-parameters>
+        <actions>
+            <entity-find entity-name="MoquiTraining" list="trainingInfo">
+                <econdition field-name="trainingName" ignore-case="true"/>
+            </entity-find>
+            <if condition="trainingInfo">
+                <then>
+                    <set field="training" from="trainingInfo.first"></set>
+                    <entity-set value-field="training" map="context"></entity-set>
+                    <entity-update value-field="training"/>
+                    <set field="trainingId" from="training.trainingId"></set>
+                </then>
+                <else>
+                    <service-call name="create#MoquiTraining" in-map="context" out-map="context"/>
+                </else>
+            </if>
+        </actions>
+    </service>
 </services>
