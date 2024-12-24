@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-facade-xml>
+    <MoquiTraining trainingId="1" trainingName="Software Development" trainingDate="2023-12-01" trainingPrice="150.00" trainingDuration="90"/>
+    <MoquiTraining trainingId="2" trainingName="Project Management" trainingDate="2023-12-10" trainingPrice="120.00" trainingDuration="60"/>
+    <MoquiTraining trainingId="3" trainingName="Web Design" trainingDate="2023-12-15" trainingPrice="100.00" trainingDuration="75"/>
+</entity-facade-xml>
